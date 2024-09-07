@@ -18,7 +18,7 @@ namespace Sealed.API
                 options.AddPolicy("development", builder =>
                 {
                     // Todo 
-                    builder.WithOrigins("*").AllowAnyMethod().AllowAnyHeader();
+                    builder.WithOrigins("http://localhost:4200").AllowAnyMethod().AllowAnyHeader();
                 });
             });
 
@@ -35,7 +35,7 @@ namespace Sealed.API
 
             app.UseAuthorization();
 
-            app.UseCors();
+            app.UseCors("development");
 
             app.MapControllers();
 

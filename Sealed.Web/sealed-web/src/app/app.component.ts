@@ -17,7 +17,12 @@ export class AppComponent {
   }
   async generateCodes() {
     alert('generating');
-    this.codeService.generateCodePair();
+    const codePair = await this.codeService.generateCodePair();
+
+    if (codePair == undefined) {
+      return;
+    }
+
 
   }
   useExistingCodes() {

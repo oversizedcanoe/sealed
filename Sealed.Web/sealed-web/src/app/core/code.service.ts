@@ -12,16 +12,17 @@ export class CodeService {
 
   constructor(public backendService: BackendService) { }
 
-  async generateCodePair() {
+  async generateCodePair(): Promise<CodePair | undefined> {
     const result = await this.backendService.get<CodePair>(this.url + '/getpair');
 
     if (result instanceof ApiError) {
-      alert('failed to generate pair')
+      alert('Failed to generate pair!')
       console.error(result);
       return;
     }
 
-    alert('public: ' + result.publicKey)
-    alert('private: ' + result.privateKey)
+    console.log(result);
+
+    return result;
   }
 }
