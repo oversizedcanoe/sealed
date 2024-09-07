@@ -1,0 +1,48 @@
+# .NET build artifacts
+bin/
+obj/
+out/
+*.dll
+*.exe
+*.log
+*.pdb
+*.cache
+*.mdb
+*.pidb
+
+# User-specific files
+.vscode/
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
+
+# Dotnet package directories
+packages/
+.nuget/
+
+# Publish directory
+wwwroot/
+
+# Angular build artifacts
+dist/
+node_modules/
+coverage/
+**/node_modules/
+
+# Angular CLI settings
+.angular/
+
+# IDE settings (optional, depending on what IDE you use)
+.vscode/
+.idea/
+
+# Logs and temporary files
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+package-lock.json
+
+
+.vs/
+*/.vs/

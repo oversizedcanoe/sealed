@@ -1,0 +1,61 @@
+html {
+    font-family: sans-serif;
+}
+
+body {
+    background-color: aliceblue;
+    padding: 3rem 0;
+    margin: auto;
+
+    @media (max-width: 600px) {
+        /* small devices */
+        width: 80%;
+    }
+
+    width: 40%;
+}
+
+h1 {
+    padding: 0;
+    margin: 0;
+}
+
+button {
+    border-radius: 4px !important;
+}
+
+.button-primary {
+    background-color: #4f3bff;
+    color: aliceblue
+}
+
+.button-secondary {
+    background-color: #ffef3b;
+    color: black;
+}
+
+.button-success {
+    background-color: #3BFF4F;
+    color: black;
+}
+
+.button-error {
+    background-color: #FF4F3B;
+    color: black;
+}
+
+.button-xs {
+    font-size: 70%;
+}
+
+.button-sm {
+    font-size: 85%;
+}
+
+.button-lg {
+    font-size: 110%;
+}
+
+.button-xl {
+    font-size: 125%;
+}
