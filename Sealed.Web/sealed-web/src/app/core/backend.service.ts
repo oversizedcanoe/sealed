@@ -11,8 +11,8 @@ export class BackendService {
   constructor(public httpClient: HttpClient) {
   }
 
-  async get<T>(url: string, res: 'text' | 'json' | undefined = 'json'): Promise<T | ApiError> {
-    const result$ = this.httpClient.get(this.baseUrl + url, { observe: 'response', responseType: res});
+  async get<T>(url: string): Promise<T | ApiError> {
+    const result$ = this.httpClient.get(this.baseUrl + url, { observe: 'response', responseType: 'text'});
     const result = await lastValueFrom(result$);
 
     console.log(result)
@@ -20,6 +20,7 @@ export class BackendService {
       return result.body as T;
     }
     else {
+      alert(`Error ${result.status}: ${result.statusText}`)
       return new ApiError(result.statusText, result.status)
     }
   }

@@ -17,9 +17,7 @@ namespace Sealed.API.Controllers
         public string GetPrivateCode()
         {
             // Todo skip logic for now just testing
-            string code = Guid.NewGuid().ToString();
-
-            return "hello";
+            return Guid.NewGuid().ToString();
         }
     }
 }
