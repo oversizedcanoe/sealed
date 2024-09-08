@@ -13,15 +13,13 @@ namespace Sealed.API.Controllers
             _logger = logger;
         }
 
-        [HttpGet(Name = "GetPair")]
-        public CodePairDTO GetPair()
+        [HttpGet]
+        public string GetPrivateCode()
         {
             // Todo skip logic for now just testing
-            return new CodePairDTO()
-            {
-                PrivateCode = Guid.NewGuid().ToString(),
-                PublicCode = Guid.NewGuid().ToString(),
-            };
+            string code = Guid.NewGuid().ToString();
+
+            return "hello";
         }
     }
 }

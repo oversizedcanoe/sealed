@@ -1,0 +1,32 @@
+<main>
+    <h1>Sealed</h1>
+  
+    <div class="description">
+      <p>Sealed is an anonymous feedback web application. It's easy:</p>
+      <ol>
+        <li>Generate a public and private code.</li>
+        <li>Distribute the public code to anyone -- employees, event attendees, customers, friends.</li>
+        <li>They submit <b>completely anonymous</b> feedback, reviews, anything.</li>
+        <li>View the feedback using the original private code.</li>
+      </ol>
+      <p>That's it. Try it out below.</p>
+    </div>
+  
+    <div class="option">
+      <p>If you'd like to generate a new set of codes, click the button below.</p>
+      <button class="pure-button button-primary button-xl" (click)="generateCodes()">Generate Codes</button>
+    </div>
+  
+    <div class="option">
+      <p>If you have an existing code, or would like to check one you previously generated, enter the code below.</p>
+      <form class="pure-form">
+        <fieldset>
+          <input class="existing-code" type="text" placeholder="Existing Code" style="font-size: 125%;" />
+  
+          <button class="pure-button button-primary button-xl" type="submit" (click)="useExistingCodes()">Go</button>
+        </fieldset>
+      </form>
+    </div>
+  
+  </main>
+  
