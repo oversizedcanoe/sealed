@@ -1,18 +1,25 @@
 ﻿using System;
 using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 
 namespace Sealed.Database;
 
 public partial class SealedContext : DbContext
 {
-    public SealedContext()
-    {
-    }
+    private string _connectionString = string.Empty;
 
-    public SealedContext(DbContextOptions<SealedContext> options)
+    public SealedContext(DbContextOptions<SealedContext> options, IConfiguration configuration)
         : base(options)
     {
+        string connectionString = configuration["SealedConnectionString"];
+
+        if (connectionString == null)
+        {
+            throw new Exception("Connection string not set in configuration");
+        }
+
+        _connectionString = connectionString;
     }
 
     public virtual DbSet<Code> Codes { get; set; }
@@ -24,7 +31,9 @@ public partial class SealedContext : DbContext
     public virtual DbSet<Userentry> Userentries { get; set; }
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        => optionsBuilder.UseNpgsql("myconnectionstringhere");
+    {
+        optionsBuilder.UseNpgsql(_connectionString);
+    }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {

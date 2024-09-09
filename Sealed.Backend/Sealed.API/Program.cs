@@ -1,3 +1,5 @@
+using Sealed.Database;
+
 namespace Sealed.API
 {
     public class Program
@@ -21,6 +23,10 @@ namespace Sealed.API
                     builder.WithOrigins("http://localhost:4200").AllowAnyMethod().AllowAnyHeader();
                 });
             });
+
+
+            builder.Services.AddDbContext<SealedContext>();
+            builder.Services.AddScoped<SealedContext>();
 
             var app = builder.Build();
 
