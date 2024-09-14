@@ -25,8 +25,8 @@ namespace Sealed.API
             });
 
 
-            builder.Services.AddDbContext<SealedContext>();
-            builder.Services.AddScoped<SealedContext>();
+            //builder.Services.AddDbContext<SealedContext>();
+            //builder.Services.AddScoped<SealedContext>();
 
             var app = builder.Build();
 

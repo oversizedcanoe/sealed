@@ -1,0 +1,19 @@
+Entity Framework commands
+Scaffold DB command: 
+- dotnet ef dbcontext scaffold "Host=HOST;Database=DATABASE;Username=USERNAME;Password=PASSWORD" Npgsql.EntityFrameworkCore.PostgreSQL
+Add migration
+- dotnet ef migrations add MyMigrationNameHere
+
+Storing connection strings
+- Must be done in the API project, as that is where the services are registered -- even though the Database project is what calls configuration["..."]
+- Commands:
+dotnet user-secrets init
+dotnet user-secrets set "Key" "Value"
+- Access it with:
+builder.Configuration["Key"];
+- List secrets
+dotnet user-secrets list
+- Remove secret
+dotnet user-secrets remove "Key"
+
+
