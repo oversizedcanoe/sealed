@@ -21,4 +21,8 @@
     <Folder Include="Migrations\" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\Sealed.Domain\Sealed.Domain.csproj" />
+  </ItemGroup>
+
 </Project>

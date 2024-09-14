@@ -4,12 +4,12 @@ namespace Sealed.Domain.DTOs
 {
     public static class MapperExtensions
     {
-        public static CodePairDTO ToDTO(this CodePair codePair)
+        public static KeyPairDTO ToDTO(this KeyPair keyPair)
         {
-            CodePairDTO codePairDTO = new CodePairDTO()
+            KeyPairDTO codePairDTO = new KeyPairDTO()
             {
-                PrivateCode = codePair.PrivateCode,
-                PublicCode = codePair.PublicCode
+                PrivateKey = keyPair.PrivateKey.,
+                PublicKey = keyPair.PublicKey
             };
 
             return codePairDTO;

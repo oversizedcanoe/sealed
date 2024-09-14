@@ -8,10 +8,10 @@ using System.Threading.Tasks;
 
 namespace Sealed.Domain.DTOs
 {
-    public record CodePairDTO
+    public record KeyPairDTO
     {
-        public string PrivateCode { get; set; }
-        public string PublicCode { get; set; }
+        public string PrivateKey { get; set; }
+        public string PublicKey { get; set; }
         
     }
 }

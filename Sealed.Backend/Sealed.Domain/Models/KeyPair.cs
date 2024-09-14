@@ -1,4 +1,4 @@
-﻿namespace Sealed.Database.Models;
+﻿namespace Sealed.Domain.Models;
 
 public partial class KeyPair
 {

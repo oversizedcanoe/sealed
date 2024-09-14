@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
-using Sealed.Database.Models;
+using Sealed.Domain.Models;
 
 namespace Sealed.Database;
 
@@ -89,6 +89,11 @@ public partial class DatabaseContext : DbContext
                 .HasMaxLength(20)
                 .HasColumnName("keytypename");
         });
+
+        modelBuilder.Entity<KeyType>().HasData(
+            new KeyType { KeyTypeId = 1, KeyTypeName = "Private" },
+            new KeyType { KeyTypeId = 2, KeyTypeName = "Public" }
+        );
 
         modelBuilder.Entity<UserEntry>(entity =>
         {
