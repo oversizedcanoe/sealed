@@ -8,8 +8,8 @@ namespace Sealed.Domain.DTOs
         {
             KeyPairDTO codePairDTO = new KeyPairDTO()
             {
-                PrivateKey = keyPair.PrivateKey.,
-                PublicKey = keyPair.PublicKey
+                //PrivateKey = keyPair.PrivateKey.,
+                //PublicKey = keyPair.PublicKey
             };
 
             return codePairDTO;

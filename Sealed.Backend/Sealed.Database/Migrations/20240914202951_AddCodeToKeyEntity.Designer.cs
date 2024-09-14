@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using Sealed.Database;
@@ -11,9 +12,11 @@ using Sealed.Database;
 namespace Sealed.Database.Migrations
 {
     [DbContext(typeof(DatabaseContext))]
-    partial class DatabaseContextModelSnapshot : ModelSnapshot
+    [Migration("20240914202951_AddCodeToKeyEntity")]
+    partial class AddCodeToKeyEntity
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -48,12 +51,6 @@ namespace Sealed.Database.Migrations
 
             modelBuilder.Entity("Sealed.Domain.Models.KeyPair", b =>
                 {
-                    b.Property<long>("KeyPairId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint");
-
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<long>("KeyPairId"));
-
                     b.Property<long>("PrivateKeyId")
                         .HasColumnType("bigint")
                         .HasColumnName("privatekeyid");
@@ -61,9 +58,6 @@ namespace Sealed.Database.Migrations
                     b.Property<long>("PublicKeyId")
                         .HasColumnType("bigint")
                         .HasColumnName("publickeyid");
-
-                    b.HasKey("KeyPairId")
-                        .HasName("keypair_pkey");
 
                     b.HasIndex("PrivateKeyId");
 

@@ -30,11 +30,11 @@ public partial class DatabaseContext : DbContext
 
     public virtual DbSet<Key> Keys { get; set; }
 
-    public virtual DbSet<KeyPair> Keypairs { get; set; }
+    public virtual DbSet<KeyPair> KeyPairs { get; set; }
 
-    public virtual DbSet<KeyType> Keytypes { get; set; }
+    public virtual DbSet<KeyType> KeyTypes { get; set; }
 
-    public virtual DbSet<UserEntry> Userentries { get; set; }
+    public virtual DbSet<UserEntry> UserEntries { get; set; }
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         => optionsBuilder.UseNpgsql(_connectionString);
@@ -58,9 +58,9 @@ public partial class DatabaseContext : DbContext
 
         modelBuilder.Entity<KeyPair>(entity =>
         {
-            entity
-                .HasNoKey()
-                .ToTable("keypair");
+            entity.HasKey(e => e.KeyPairId).HasName("keypair_pkey");
+
+            entity.ToTable("keypair");
 
             entity.Property(e => e.PrivateKeyId).HasColumnName("privatekeyid");
             entity.Property(e => e.PublicKeyId).HasColumnName("publickeyid");
