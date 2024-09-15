@@ -33,7 +33,7 @@ namespace Sealed.API.Controllers
         [HttpGet("{key}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        public ActionResult<string> GetKeyType([IsGuid] string key)
+        public ActionResult<KeyTypeEnum> GetKeyType([IsGuid] string key)
         {
             KeyTypeEnum? keyType = this._keyService.GetKeyType(key);
 
@@ -43,7 +43,7 @@ namespace Sealed.API.Controllers
             }
             else
             {
-                return Ok(keyType.ToString());
+                return Ok(keyType);
             }
         }
 

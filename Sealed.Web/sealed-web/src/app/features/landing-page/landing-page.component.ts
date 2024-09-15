@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
-import { CodeService } from '../../core/code.service';
+import { KeyService } from '../../core/key.service';
+import { StorageService } from '../../shared/storage.service';
 
 @Component({
   selector: 'app-landing-page',
@@ -11,22 +12,25 @@ import { CodeService } from '../../core/code.service';
 export class LandingPageComponent {
 
   
-  constructor(public codeService: CodeService) {
+  constructor(public codeService: KeyService, public storageService: StorageService) {
   }
   
   async generateCodes() {
     alert('generating');
-    const privateCode = await this.codeService.generatePrivateCode();
+    const keyPair = await this.codeService.createKeyPair();
 
-    if (privateCode == undefined) {
+    if (keyPair == undefined) {
       return;
     }
 
+    this.storageService.createdKeyPair = keyPair;
 
-    alert(privateCode)
-
-
+    // Navigate to view-code component and pass in a param like "viewcode?c=storage" so the component knows
+    // to use the code just generated in storage.
+    // Then ensure that the view code component clears storage and notifies the user they will lose the code 
+    // if they don't copy it now. 
   }
+
   useExistingCodes() {
     alert('existing');
 

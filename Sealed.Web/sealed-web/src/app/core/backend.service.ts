@@ -12,10 +12,11 @@ export class BackendService {
   }
 
   async get<T>(url: string): Promise<T | ApiError> {
-    const result$ = this.httpClient.get(this.baseUrl + url, { observe: 'response', responseType: 'text'});
+    const result$ = this.httpClient.get(this.baseUrl + url, { observe: 'response'});
     const result = await lastValueFrom(result$);
 
     console.log(result)
+
     if (result.ok) {
       return result.body as T;
     }
@@ -25,8 +26,19 @@ export class BackendService {
     }
   }
 
-  post(url: string, body: {}): Observable<object> | ApiError {
-    return this.httpClient.post(url, body);
+  async post<T>(url: string, body: {} = {}): Promise<T | ApiError> {
+    const result$ = this.httpClient.post<T>(url, body, { observe: 'response'});
+    const result = await lastValueFrom(result$);
+    
+    console.log(result)
+    
+    if (result.ok) {
+      return result.body as T;
+    }
+    else {
+      alert(`Error ${result.status}: ${result.statusText}`)
+      return new ApiError(result.statusText, result.status)
+    }
   }
 }
 
