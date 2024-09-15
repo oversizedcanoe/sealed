@@ -16,6 +16,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Sealed.Application\Sealed.Application.csproj" />
     <ProjectReference Include="..\Sealed.Database\Sealed.Database.csproj" />
     <ProjectReference Include="..\Sealed.Domain\Sealed.Domain.csproj" />
   </ItemGroup>

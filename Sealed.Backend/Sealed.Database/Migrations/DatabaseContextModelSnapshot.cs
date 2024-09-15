@@ -32,7 +32,8 @@ namespace Sealed.Database.Migrations
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<long>("KeyId"));
 
                     b.Property<Guid>("Code")
-                        .HasColumnType("uuid");
+                        .HasColumnType("uuid")
+                        .HasColumnName("code");
 
                     b.Property<int>("KeyTypeId")
                         .HasColumnType("integer")
@@ -50,7 +51,8 @@ namespace Sealed.Database.Migrations
                 {
                     b.Property<long>("KeyPairId")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint");
+                        .HasColumnType("bigint")
+                        .HasColumnName("keypairid");
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<long>("KeyPairId"));
 

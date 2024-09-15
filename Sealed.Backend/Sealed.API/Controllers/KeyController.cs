@@ -1,7 +1,10 @@
 using Microsoft.AspNetCore.Mvc;
+using Sealed.API.Validation;
+using Sealed.Application.Interfaces;
 using Sealed.Database;
 using Sealed.Domain.DTOs;
 using Sealed.Domain.Models;
+using System.Security.Cryptography.X509Certificates;
 using static Sealed.Domain.Enums;
 
 namespace Sealed.API.Controllers
@@ -10,45 +13,55 @@ namespace Sealed.API.Controllers
     public class KeyController : BaseController
     {
         private readonly ILogger<KeyController> _logger;
-        private readonly DatabaseContext _databaseContext;
-        
-        public KeyController(ILogger<KeyController> logger, DatabaseContext databaseContext)
+        private readonly IKeyService _keyService;
+
+        public KeyController(ILogger<KeyController> logger, IKeyService keyService)
         {
-            _logger = logger;
-            _databaseContext = databaseContext;
+            this._logger = logger;
+            this._keyService = keyService;
         }
 
-        [HttpGet]
-        public string GetPrivateKey()
+        [HttpPost]
+        [ProducesResponseType(StatusCodes.Status201Created)]
+        public ActionResult<KeyPairDTO> CreateKeyPair()
         {
-            // Test Code
+            var keyPair = this._keyService.CreateKeyPair();
 
-            Key publicKey = new Key()
+            return Created(uri: string.Empty, keyPair.ToDTO());
+        }
+
+        [HttpGet("{key}")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        public ActionResult<string> GetKeyType([IsGuid] string key)
+        {
+            KeyTypeEnum? keyType = this._keyService.GetKeyType(key);
+
+            if (keyType == null)
             {
-                Code = Guid.NewGuid(),
-                KeyTypeId = (int)KeyTypeEnum.Public
-            };
-
-            Key privateKey = new Key()
+                return NotFound();
+            }
+            else
             {
-                Code = Guid.NewGuid(),
-                KeyTypeId = (int)KeyTypeEnum.Private
-            };
+                return Ok(keyType.ToString());
+            }
+        }
 
-            _databaseContext.Keys.Add(publicKey);
-            _databaseContext.Keys.Add(privateKey);
+        [HttpGet("{privateKey}")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        public ActionResult<KeyDTO> GetPublicKey([IsGuid] string privateKey)
+        {
+            Key? publicKey = this._keyService.GetPublicKeyForPrivateKey(privateKey);
 
-            _databaseContext.SaveChanges();
-
-            _databaseContext.KeyPairs.Add(new KeyPair()
+            if (publicKey == null)
             {
-                PublicKey = publicKey,
-                PrivateKey = privateKey
-            });
-
-            _databaseContext.SaveChanges();
-
-            return privateKey.Code.ToString();
+                return NotFound();
+            }
+            else
+            {
+                return Ok(publicKey.ToDTO());
+            }
         }
     }
 }

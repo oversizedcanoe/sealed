@@ -1,7 +1,10 @@
-﻿using Microsoft.EntityFrameworkCore.Migrations;
+﻿using System;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 #nullable disable
+
+#pragma warning disable CA1814 // Prefer jagged arrays over multidimensional
 
 namespace Sealed.Database.Migrations
 {
@@ -29,6 +32,7 @@ namespace Sealed.Database.Migrations
                 {
                     keyid = table.Column<long>(type: "bigint", nullable: false)
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    code = table.Column<Guid>(type: "uuid", nullable: false),
                     keytypeid = table.Column<int>(type: "integer", nullable: false)
                 },
                 constraints: table =>
@@ -45,11 +49,14 @@ namespace Sealed.Database.Migrations
                 name: "keypair",
                 columns: table => new
                 {
+                    keypairid = table.Column<long>(type: "bigint", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
                     privatekeyid = table.Column<long>(type: "bigint", nullable: false),
                     publickeyid = table.Column<long>(type: "bigint", nullable: false)
                 },
                 constraints: table =>
                 {
+                    table.PrimaryKey("keypair_pkey", x => x.keypairid);
                     table.ForeignKey(
                         name: "keypair_privatekeyid_fkey",
                         column: x => x.privatekeyid,
@@ -76,6 +83,15 @@ namespace Sealed.Database.Migrations
                         column: x => x.publickeyid,
                         principalTable: "key",
                         principalColumn: "keyid");
+                });
+
+            migrationBuilder.InsertData(
+                table: "keytype",
+                columns: new[] { "keytypeid", "keytypename" },
+                values: new object[,]
+                {
+                    { 1, "Private" },
+                    { 2, "Public" }
                 });
 
             migrationBuilder.CreateIndex(

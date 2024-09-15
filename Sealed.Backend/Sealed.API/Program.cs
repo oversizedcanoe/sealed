@@ -1,3 +1,5 @@
+using Sealed.Application.Interfaces;
+using Sealed.Application.Services;
 using Sealed.Database;
 
 namespace Sealed.API
@@ -24,9 +26,9 @@ namespace Sealed.API
                 });
             });
 
-
             builder.Services.AddDbContext<DatabaseContext>();
             builder.Services.AddScoped<DatabaseContext>();
+            builder.Services.AddScoped<IKeyService, KeyService>();
 
             var app = builder.Build();
 

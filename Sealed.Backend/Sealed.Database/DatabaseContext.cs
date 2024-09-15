@@ -49,6 +49,7 @@ public partial class DatabaseContext : DbContext
 
             entity.Property(e => e.KeyId).HasColumnName("keyid");
             entity.Property(e => e.KeyTypeId).HasColumnName("keytypeid");
+            entity.Property(e => e.Code).HasColumnName("code");
 
             entity.HasOne(d => d.KeyType).WithMany(p => p.Keys)
                 .HasForeignKey(d => d.KeyTypeId)
@@ -62,6 +63,7 @@ public partial class DatabaseContext : DbContext
 
             entity.ToTable("keypair");
 
+            entity.Property(e => e.KeyPairId).HasColumnName("keypairid");
             entity.Property(e => e.PrivateKeyId).HasColumnName("privatekeyid");
             entity.Property(e => e.PublicKeyId).HasColumnName("publickeyid");
 
