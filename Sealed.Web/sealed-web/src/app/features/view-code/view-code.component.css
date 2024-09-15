@@ -1,0 +1,10 @@
+.userInputForm {
+    text-align: center;
+}
+.userInput {
+    max-width: 100%;
+}
+
+.submitButton {
+    margin-top: 5px;
+}

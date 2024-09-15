@@ -25,7 +25,6 @@ namespace Sealed.API.Controllers
             return Ok(userEntries.Select(ue => ue.ToDTO()));
         }
 
-
         [HttpPost("{publicKey}")]
         [ProducesResponseType(StatusCodes.Status201Created)]
         public ActionResult<UserEntryDTO?> AddUserEntry([IsGuid] string publicKey, string text)

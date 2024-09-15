@@ -21,7 +21,7 @@
       <p>If you have an existing code, or would like to check one you previously generated, enter the code below.</p>
       <form class="pure-form">
         <fieldset>
-          <input class="existing-code" type="text" placeholder="Existing Code" style="font-size: 125%;" />
+          <input name="existingCode" class="existing-code" type="text" placeholder="Existing Code" style="font-size: 125%;" [(ngModel)]="existingCode" />
   
           <button class="pure-button button-primary button-xl" type="submit" (click)="useExistingCodes()">Go</button>
         </fieldset>
