@@ -103,13 +103,13 @@ public partial class DatabaseContext : DbContext
                 .HasNoKey()
                 .ToTable("userentry");
 
-            entity.Property(e => e.PrivateKeyId).HasColumnName("publickeyid");
+            entity.Property(e => e.PrivateKeyId).HasColumnName("privatekeyid");
             entity.Property(e => e.UserEntryId).HasColumnName("userentryid");
 
             entity.HasOne(d => d.PrivateKey).WithMany()
                 .HasForeignKey(d => d.PrivateKeyId)
                 .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("userentry_publickeyid_fkey");
+                .HasConstraintName("userentry_privatekeyidd_fkey");
         });
 
         OnModelCreatingPartial(modelBuilder);

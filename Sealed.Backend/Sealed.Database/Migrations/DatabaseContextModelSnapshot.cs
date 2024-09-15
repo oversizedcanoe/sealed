@@ -110,15 +110,15 @@ namespace Sealed.Database.Migrations
                         .HasMaxLength(500)
                         .HasColumnType("character varying(500)");
 
-                    b.Property<long>("PublicKeyId")
+                    b.Property<long>("PrivateKeyId")
                         .HasColumnType("bigint")
-                        .HasColumnName("publickeyid");
+                        .HasColumnName("privatekeyid");
 
                     b.Property<long>("UserEntryId")
                         .HasColumnType("bigint")
                         .HasColumnName("userentryid");
 
-                    b.HasIndex("PublicKeyId");
+                    b.HasIndex("PrivateKeyId");
 
                     b.ToTable("userentry", (string)null);
                 });
@@ -155,13 +155,13 @@ namespace Sealed.Database.Migrations
 
             modelBuilder.Entity("Sealed.Domain.Models.UserEntry", b =>
                 {
-                    b.HasOne("Sealed.Domain.Models.Key", "PublicKey")
+                    b.HasOne("Sealed.Domain.Models.Key", "PrivateKey")
                         .WithMany()
-                        .HasForeignKey("PublicKeyId")
+                        .HasForeignKey("PrivateKeyId")
                         .IsRequired()
-                        .HasConstraintName("userentry_publickeyid_fkey");
+                        .HasConstraintName("userentry_privatekeyidd_fkey");
 
-                    b.Navigation("PublicKey");
+                    b.Navigation("PrivateKey");
                 });
 
             modelBuilder.Entity("Sealed.Domain.Models.KeyType", b =>

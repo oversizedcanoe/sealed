@@ -74,13 +74,14 @@ namespace Sealed.Database.Migrations
                 columns: table => new
                 {
                     userentryid = table.Column<long>(type: "bigint", nullable: false),
-                    publickeyid = table.Column<long>(type: "bigint", nullable: false)
+                    privatekeyid = table.Column<long>(type: "bigint", nullable: false),
+                    EntryText = table.Column<string>(type: "character varying(500)", maxLength: 500, nullable: false)
                 },
                 constraints: table =>
                 {
                     table.ForeignKey(
-                        name: "userentry_publickeyid_fkey",
-                        column: x => x.publickeyid,
+                        name: "userentry_privatekeyidd_fkey",
+                        column: x => x.privatekeyid,
                         principalTable: "key",
                         principalColumn: "keyid");
                 });
@@ -110,9 +111,9 @@ namespace Sealed.Database.Migrations
                 column: "publickeyid");
 
             migrationBuilder.CreateIndex(
-                name: "IX_userentry_publickeyid",
+                name: "IX_userentry_privatekeyid",
                 table: "userentry",
-                column: "publickeyid");
+                column: "privatekeyid");
         }
 
         /// <inheritdoc />
