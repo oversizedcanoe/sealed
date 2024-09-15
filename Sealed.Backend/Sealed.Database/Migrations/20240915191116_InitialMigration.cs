@@ -73,12 +73,14 @@ namespace Sealed.Database.Migrations
                 name: "userentry",
                 columns: table => new
                 {
-                    userentryid = table.Column<long>(type: "bigint", nullable: false),
+                    UserEntryId = table.Column<long>(type: "bigint", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
                     privatekeyid = table.Column<long>(type: "bigint", nullable: false),
-                    EntryText = table.Column<string>(type: "character varying(500)", maxLength: 500, nullable: false)
+                    entrytext = table.Column<string>(type: "character varying(500)", maxLength: 500, nullable: false)
                 },
                 constraints: table =>
                 {
+                    table.PrimaryKey("userentry_pkey", x => x.UserEntryId);
                     table.ForeignKey(
                         name: "userentry_privatekeyidd_fkey",
                         column: x => x.privatekeyid,

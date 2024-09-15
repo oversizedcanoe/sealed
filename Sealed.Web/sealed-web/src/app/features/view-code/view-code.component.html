@@ -1,1 +1,8 @@
-<p>view-code works!</p>
+
+<p>Private Key: {{privateKey}}</p>
+<p>Public Key: {{publicKey}}</p>
+<hr/>
+
+@for (entry of userEntries; track entry.text){
+    <p>{{entry}}</p>
+}

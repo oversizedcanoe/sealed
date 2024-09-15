@@ -99,12 +99,12 @@ public partial class DatabaseContext : DbContext
 
         modelBuilder.Entity<UserEntry>(entity =>
         {
-            entity
-                .HasNoKey()
-                .ToTable("userentry");
+            entity.HasKey(e => e.UserEntryId).HasName("userentry_pkey");
+
+            entity.ToTable("userentry");
 
             entity.Property(e => e.PrivateKeyId).HasColumnName("privatekeyid");
-            entity.Property(e => e.UserEntryId).HasColumnName("userentryid");
+            entity.Property(e => e.EntryText).HasColumnName("entrytext");
 
             entity.HasOne(d => d.PrivateKey).WithMany()
                 .HasForeignKey(d => d.PrivateKeyId)

@@ -15,7 +15,7 @@ namespace Sealed.Application.Services
             this._databaseContext = databaseContext;
         }
 
-        private Key? GetKeyFromCode(string code)
+        public Key? GetKeyFromCode(string code)
         {
             Guid guid = new Guid(g: code);
             

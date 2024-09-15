@@ -17,7 +17,6 @@ export class LandingPageComponent {
   }
   
   async generateCodes() {
-    alert('generating');
     const keyPair = await this.codeService.createKeyPair();
 
     if (keyPair == undefined) {

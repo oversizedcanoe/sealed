@@ -105,18 +105,24 @@ namespace Sealed.Database.Migrations
 
             modelBuilder.Entity("Sealed.Domain.Models.UserEntry", b =>
                 {
+                    b.Property<long>("UserEntryId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<long>("UserEntryId"));
+
                     b.Property<string>("EntryText")
                         .IsRequired()
                         .HasMaxLength(500)
-                        .HasColumnType("character varying(500)");
+                        .HasColumnType("character varying(500)")
+                        .HasColumnName("entrytext");
 
                     b.Property<long>("PrivateKeyId")
                         .HasColumnType("bigint")
                         .HasColumnName("privatekeyid");
 
-                    b.Property<long>("UserEntryId")
-                        .HasColumnType("bigint")
-                        .HasColumnName("userentryid");
+                    b.HasKey("UserEntryId")
+                        .HasName("userentry_pkey");
 
                     b.HasIndex("PrivateKeyId");
 

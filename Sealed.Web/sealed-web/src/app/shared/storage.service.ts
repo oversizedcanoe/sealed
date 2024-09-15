@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { KeyPair } from '../core/key.service';
+import { KeyPair } from '../core/models';
 
 @Injectable({
     providedIn: 'root'

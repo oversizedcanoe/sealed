@@ -1,20 +1,7 @@
 import { Injectable } from '@angular/core';
 import { BackendService } from './backend.service';
 import { ApiError } from './api-error';
-
-export enum KeyType {
-  Private = 1,
-  Public = 2
-}
-
-export interface Key {
-  code: string;
-}
-
-export interface KeyPair{
-  privateKey: Key;
-  publicKey: Key;
-}
+import { Key, KeyPair } from './models';
 
 @Injectable({
   providedIn: 'root'

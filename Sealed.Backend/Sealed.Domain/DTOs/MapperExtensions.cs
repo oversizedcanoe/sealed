@@ -24,5 +24,15 @@ namespace Sealed.Domain.DTOs
 
             return codePairDTO;
         }
+
+        public static UserEntryDTO ToDTO(this UserEntry userEntry)
+        {
+            UserEntryDTO userEntryDTO = new UserEntryDTO()
+            {
+                Text = userEntry.EntryText
+            };
+
+            return userEntryDTO;
+        }
     }
 }

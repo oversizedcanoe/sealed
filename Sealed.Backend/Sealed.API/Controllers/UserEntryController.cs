@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using Sealed.API.Validation;
+using Sealed.Application.Interfaces;
 using Sealed.Domain.DTOs;
 
 namespace Sealed.API.Controllers
@@ -8,27 +8,21 @@ namespace Sealed.API.Controllers
     public class UserEntryController : BaseController
     {
         private readonly ILogger<UserEntryController> _logger;
+        private readonly IUserEntryService _userEntryService;
 
-        public UserEntryController(ILogger<UserEntryController> logger)
+        public UserEntryController(ILogger<UserEntryController> logger, IUserEntryService userEntryService)
         {
             this._logger = logger;
+            this._userEntryService = userEntryService;
         }
 
         [HttpGet("{privateKey}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
-        [ProducesResponseType(StatusCodes.Status404NotFound)]
-        public ActionResult<IEnumerable<UserEntryDTO> GetUserEntries([IsGuid] string privateKey)
+        public ActionResult<IEnumerable<UserEntryDTO>> GetUserEntries([IsGuid] string privateKey)
         {
-            Key? publicKey = this._keyService.GetPublicKeyForPrivateKey(privateKey);
+            var userEntries = this._userEntryService.GetUserEntries(privateKey);
 
-            if (publicKey == null)
-            {
-                return NotFound();
-            }
-            else
-            {
-                return Ok(publicKey.ToDTO());
-            }
+            return Ok(userEntries.Select(ue => ue.ToDTO()));
         }
     }
 }

@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { StorageService } from '../../shared/storage.service';
-import { KeyPair } from '../../core/key.service';
+import { KeyPair, UserEntry } from '../../core/models';
+import { UserEntryService } from '../../core/userentry.service';
 
 @Component({
   selector: 'app-view-code',
@@ -13,8 +14,9 @@ export class ViewCodeComponent implements OnInit {
 
   public privateKey: string = '';
   public publicKey: string = ''
+  public userEntries: UserEntry[] = [];
 
-  constructor(private storage: StorageService){
+  constructor(private storage: StorageService, private userEntryService: UserEntryService){
 
   }
 
@@ -44,8 +46,11 @@ export class ViewCodeComponent implements OnInit {
     // else show error/invalid key
   }
 
-  showUserEntries(): void {
+  async showUserEntries(): Promise<void> {
+    const result = await this.userEntryService.getUserEntries(this.privateKey);
 
+    if (result != undefined) { 
+      this.userEntries =  result;
+    }
   }
-
 }

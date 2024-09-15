@@ -28,7 +28,9 @@ namespace Sealed.API
 
             builder.Services.AddDbContext<DatabaseContext>();
             builder.Services.AddScoped<DatabaseContext>();
+
             builder.Services.AddScoped<IKeyService, KeyService>();
+            builder.Services.AddScoped<IUserEntryService, UserEntryService>();
 
             var app = builder.Build();
 
