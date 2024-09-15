@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { StorageService } from '../../shared/storage.service';
+import { KeyPair } from '../../core/key.service';
 
 @Component({
   selector: 'app-view-code',
@@ -9,15 +11,41 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ViewCodeComponent implements OnInit {
 
-  constructor(){
+  public privateKey: string = '';
+  public publicKey: string = ''
+
+  constructor(private storage: StorageService){
 
   }
+
   ngOnInit(): void {
-    // Check query parameters
-    // i.e.
-    // site.com/viewcode&code=CODEGOESHERE
-    // Backend would determine if this is a private or public key and return appropriately.
-    // Then UI would query depending on if public or private
+    // Check if there are created codes in storage.
+    const keyPair: KeyPair | undefined = this.storage.createdKeyPair;
+
+    if (keyPair != undefined) {
+      this.privateKey = keyPair.privateKey.code;
+      this.publicKey = keyPair.publicKey.code;
+
+      // User must copy the codes now as we don't want them refreshing the page and seeing them again.
+      this.storage.createdKeyPair = undefined;
+
+      this.showUserEntries();
+      return;
+    }
+
+    // Check route/query parameters
+    // get param from url
+    // if is private key
+    //    query for public key
+    //    set this.private/this.public
+    //    this.showUserEntries();
+    // if is public key
+    //    show form to submit
+    // else show error/invalid key
+  }
+
+  showUserEntries(): void {
+
   }
 
 }

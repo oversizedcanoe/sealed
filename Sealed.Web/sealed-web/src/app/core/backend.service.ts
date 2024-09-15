@@ -27,7 +27,7 @@ export class BackendService {
   }
 
   async post<T>(url: string, body: {} = {}): Promise<T | ApiError> {
-    const result$ = this.httpClient.post<T>(url, body, { observe: 'response'});
+    const result$ = this.httpClient.post<T>(this.baseUrl + url, body, { observe: 'response'});
     const result = await lastValueFrom(result$);
     
     console.log(result)

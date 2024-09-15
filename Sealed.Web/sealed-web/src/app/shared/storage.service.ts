@@ -18,7 +18,7 @@ export class StorageService{
         }
     }
 
-    set createdKeyPair(keyPair: KeyPair){
+    set createdKeyPair(keyPair: KeyPair | undefined){
         localStorage.setItem('createdKeyPair', JSON.stringify(keyPair))
     }
 }

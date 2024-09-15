@@ -4,5 +4,5 @@ import { LandingPageComponent } from './features/landing-page/landing-page.compo
 
 export const routes: Routes = [
     {path: '', component: LandingPageComponent},
-    {path: 'viewcode', component: ViewCodeComponent}
+    {path: 'viewcode', title: 'View Code', component: ViewCodeComponent}
 ];
