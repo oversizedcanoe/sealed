@@ -2,9 +2,7 @@
 using Sealed.Application.Interfaces;
 using Sealed.Database;
 using Sealed.Domain.Models;
-using System.Text.Json;
 using static Sealed.Domain.Enums;
-using static System.Runtime.CompilerServices.RuntimeHelpers;
 
 namespace Sealed.Application.Services
 {

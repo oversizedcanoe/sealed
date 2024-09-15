@@ -1,15 +1,12 @@
 using Microsoft.AspNetCore.Mvc;
 using Sealed.API.Validation;
 using Sealed.Application.Interfaces;
-using Sealed.Database;
 using Sealed.Domain.DTOs;
 using Sealed.Domain.Models;
-using System.Security.Cryptography.X509Certificates;
 using static Sealed.Domain.Enums;
 
 namespace Sealed.API.Controllers
 {
-    [Route("api/[controller]/[action]")]
     public class KeyController : BaseController
     {
         private readonly ILogger<KeyController> _logger;
