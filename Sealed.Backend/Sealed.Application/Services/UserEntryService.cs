@@ -1,5 +1,6 @@
 ﻿using Sealed.Application.Interfaces;
 using Sealed.Database;
+using Sealed.Domain.DTOs;
 using Sealed.Domain.Models;
 
 namespace Sealed.Application.Services
@@ -27,6 +28,28 @@ namespace Sealed.Application.Services
             }
 
             return entries;
+        }
+
+        public UserEntryDTO? AddUserEntry(string publicKey, string text)
+        {
+            Key? privateKey = this._keyService.GetPrivateKeyForPublicKey(publicKey);
+
+            if (privateKey == null)
+            {
+                return null;
+            }
+
+            UserEntry userEntry = new UserEntry()
+            {
+                PrivateKeyId = privateKey.KeyId,
+                EntryText = text
+            };
+
+            this._databaseContext.UserEntries.Add(userEntry);
+
+            this._databaseContext.SaveChanges();
+
+            return userEntry.ToDTO();
         }
     }
 }

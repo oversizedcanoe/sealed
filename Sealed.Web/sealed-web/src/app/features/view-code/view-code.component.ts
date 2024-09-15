@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { StorageService } from '../../shared/storage.service';
 import { KeyPair, UserEntry } from '../../core/models';
-import { UserEntryService } from '../../core/userentry.service';
+import { UserEntryService } from '../../core/user-entry.service';
 
 @Component({
   selector: 'app-view-code',

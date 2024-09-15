@@ -30,6 +30,5 @@ export class LandingPageComponent {
 
   useExistingCodes() {
     alert('existing');
-
   }
 }

@@ -15,9 +15,17 @@ export class UserEntryService {
   async getUserEntries(privateKey: string): Promise<UserEntry[] | undefined> {
     const result = await this.backendService.get<UserEntry[]>(this.url + '/getuserentries/' + privateKey);
 
-    console.log(result);
     if (result instanceof ApiError) {
-      console.error(result);
+      return;
+    }
+
+    return result;
+  }
+
+  async addUserEntry(publicKey: string, entryText: string): Promise<UserEntry | undefined> {
+    const result = await this.backendService.post<UserEntry>(this.url + '/adduserentry/' + publicKey);
+
+    if (result instanceof ApiError) {
       return;
     }
 

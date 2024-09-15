@@ -15,13 +15,12 @@ export class BackendService {
     const result$ = this.httpClient.get(this.baseUrl + url, { observe: 'response'});
     const result = await lastValueFrom(result$);
 
-    console.log(result)
-
     if (result.ok) {
       return result.body as T;
     }
     else {
       alert(`Error ${result.status}: ${result.statusText}`)
+      console.error(result);
       return new ApiError(result.statusText, result.status)
     }
   }
@@ -30,13 +29,12 @@ export class BackendService {
     const result$ = this.httpClient.post<T>(this.baseUrl + url, body, { observe: 'response'});
     const result = await lastValueFrom(result$);
     
-    console.log(result)
-    
     if (result.ok) {
       return result.body as T;
     }
     else {
       alert(`Error ${result.status}: ${result.statusText}`)
+      console.error(result);
       return new ApiError(result.statusText, result.status)
     }
   }

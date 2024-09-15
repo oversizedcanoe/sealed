@@ -3,6 +3,7 @@ using Sealed.Application.Interfaces;
 using Sealed.Database;
 using Sealed.Domain.Models;
 using static Sealed.Domain.Enums;
+using static System.Runtime.CompilerServices.RuntimeHelpers;
 
 namespace Sealed.Application.Services
 {
@@ -78,6 +79,23 @@ namespace Sealed.Application.Services
                 .Single(kp => kp.PrivateKey == key);
 
             return keyPair.PublicKey;
+        }
+
+        public Key? GetPrivateKeyForPublicKey(string publicKey)
+        {
+            Key? key = this.GetKeyFromCode(publicKey);
+
+            if (key == null)
+            {
+                return null;
+            }
+
+            KeyPair keyPair = this._databaseContext.KeyPairs
+                .Include(kp => kp.PrivateKey)
+                .Include(kp => kp.PublicKey)
+                .Single(kp => kp.PublicKey == key);
+
+            return keyPair.PrivateKey;
         }
     }
 }

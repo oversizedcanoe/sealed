@@ -12,5 +12,7 @@ namespace Sealed.Application.Interfaces
         KeyTypeEnum? GetKeyType(string keyCode);
 
         Key? GetPublicKeyForPrivateKey(string privateKey);
+     
+        Key? GetPrivateKeyForPublicKey(string publicKey);
     }
 }
