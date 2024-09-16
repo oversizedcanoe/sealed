@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { KeyService } from '../../core/key.service';
+import { KeyService } from '../../shared/key.service';
 import { StorageService } from '../../shared/storage.service';
 import { Router } from '@angular/router';
 import { FormsModule } from '@angular/forms';

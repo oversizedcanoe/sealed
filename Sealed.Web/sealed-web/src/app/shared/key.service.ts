@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
-import { BackendService } from './backend.service';
-import { ApiError } from './api-error';
-import { Key, KeyPair, KeyType } from './models';
+import { BackendService } from '../core/backend.service';
+import { ApiError } from '../core/api-error';
+import { Key, KeyPair, KeyType } from '../core/models';
 
 @Injectable({
   providedIn: 'root'

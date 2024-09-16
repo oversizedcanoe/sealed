@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { lastValueFrom, Observable } from 'rxjs';
 import { ApiError } from './api-error';
@@ -26,6 +26,7 @@ export class BackendService {
   }
 
   async post<T>(url: string, body: {} = {}): Promise<T | ApiError> {
+    console.log(body);
     const result$ = this.httpClient.post<T>(this.baseUrl + url, body, { observe: 'response'});
     const result = await lastValueFrom(result$);
     

@@ -14,7 +14,7 @@ namespace Sealed.API.Controllers
         {
             this._logger = logger;
             this._userEntryService = userEntryService;
-        }
+        }   
 
         [HttpGet("{privateKey}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
@@ -27,7 +27,7 @@ namespace Sealed.API.Controllers
 
         [HttpPost("{publicKey}")]
         [ProducesResponseType(StatusCodes.Status201Created)]
-        public ActionResult<UserEntryDTO?> AddUserEntry([IsGuid] string publicKey, string text)
+        public ActionResult<UserEntryDTO?> AddUserEntry([IsGuid] string publicKey, [FromBody] string text)
         {
             UserEntryDTO? userEntry = this._userEntryService.AddUserEntry(publicKey, text);
 

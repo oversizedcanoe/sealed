@@ -1,25 +1,25 @@
 import { Component, OnInit } from '@angular/core';
 import { StorageService } from '../../shared/storage.service';
 import { KeyPair, UserEntry } from '../../core/models';
-import { UserEntryService } from '../../core/user-entry.service';
-import { KeyService } from '../../core/key.service';
+import { UserEntryService } from '../../shared/user-entry.service';
+import { KeyService } from '../../shared/key.service';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-view-code',
   standalone: true,
-  imports: [],
+  imports: [FormsModule],
   templateUrl: './view-code.component.html',
   styleUrl: './view-code.component.css'
 })
 export class ViewCodeComponent implements OnInit {
-
   public privateKey: string = '';
-  public publicKey: string = ''
+  public publicKey: string = '';
+  public userEntry: string = '';
   public userEntries: UserEntry[] = [];
   public showForm: boolean = false;
 
   constructor(private storage: StorageService, private userEntryService: UserEntryService, private keyService: KeyService) {
-
   }
 
   async ngOnInit(): Promise<void> {
@@ -84,7 +84,11 @@ export class ViewCodeComponent implements OnInit {
     }
   }
 
-  submitUserEntry(){
-    
+  async submitUserEntry(){
+    const result = await this.userEntryService.addUserEntry(this.publicKey, this.userEntry);
+
+    if (result){
+      this.userEntries.push(result);
+    }
   }
 }
