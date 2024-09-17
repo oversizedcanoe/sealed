@@ -1,10 +1,16 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.RateLimiting;
 using Sealed.API.Validation;
 using Sealed.Application.Interfaces;
 using Sealed.Domain.DTOs;
 
 namespace Sealed.API.Controllers
 {
+    public class AddUserEntryRequest
+    {
+        public string Text { get; set; }
+    }
+
     public class UserEntryController : BaseController
     {
         private readonly ILogger<UserEntryController> _logger;
@@ -25,11 +31,12 @@ namespace Sealed.API.Controllers
             return Ok(userEntries.Select(ue => ue.ToDTO()));
         }
 
+        [EnableRateLimiting("IPAddressFixedWindowPolicy")]
         [HttpPost("{publicKey}")]
         [ProducesResponseType(StatusCodes.Status201Created)]
-        public ActionResult<UserEntryDTO?> AddUserEntry([IsGuid] string publicKey, [FromBody] string text)
+        public ActionResult<UserEntryDTO?> AddUserEntry([IsGuid] string publicKey, [FromBody] AddUserEntryRequest request)
         {
-            UserEntryDTO? userEntry = this._userEntryService.AddUserEntry(publicKey, text);
+            UserEntryDTO? userEntry = this._userEntryService.AddUserEntry(publicKey, request.Text);
 
             return Created(uri: string.Empty, userEntry);
         }

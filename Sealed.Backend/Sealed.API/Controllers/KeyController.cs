@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.RateLimiting;
 using Sealed.API.Validation;
 using Sealed.Application.Interfaces;
 using Sealed.Domain.DTOs;
@@ -18,6 +19,7 @@ namespace Sealed.API.Controllers
             this._keyService = keyService;
         }
 
+        [EnableRateLimiting("IPAddressFixedWindowPolicy")]
         [HttpPost]
         [ProducesResponseType(StatusCodes.Status201Created)]
         public ActionResult<KeyPairDTO> CreateKeyPair()

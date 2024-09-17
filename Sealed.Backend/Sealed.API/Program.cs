@@ -1,6 +1,9 @@
+using Microsoft.AspNetCore.RateLimiting;
+using Microsoft.Extensions.Options;
 using Sealed.Application.Interfaces;
 using Sealed.Application.Services;
 using Sealed.Database;
+using System.Threading.RateLimiting;
 
 namespace Sealed.API
 {
@@ -32,6 +35,32 @@ namespace Sealed.API
             builder.Services.AddScoped<IKeyService, KeyService>();
             builder.Services.AddScoped<IUserEntryService, UserEntryService>();
 
+            builder.Services.AddRateLimiter(options =>
+            {
+
+                options.OnRejected = (context, cancellationToken) =>
+                {
+                    context.HttpContext.Response.StatusCode = StatusCodes.Status429TooManyRequests;
+                    return new ValueTask();
+                };
+
+                options.AddPolicy("IPAddressFixedWindowPolicy", context =>
+                {
+                    string ipAddress = context.Connection.RemoteIpAddress?.ToString() ?? "";
+                    string partitionKey = ipAddress + context.Request.Path;
+
+                    // User can hit a specific endpoint 10 tiems
+                    return RateLimitPartition.GetFixedWindowLimiter(partitionKey: partitionKey,
+                        factory: partition => new FixedWindowRateLimiterOptions
+                        {
+                            AutoReplenishment = true,
+                            PermitLimit = 10,
+                            QueueLimit = 0,
+                            Window = TimeSpan.FromHours(24)
+                        });
+                });
+            });
+
             var app = builder.Build();
 
             // Configure the HTTP request pipeline.
@@ -48,6 +77,8 @@ namespace Sealed.API
             app.UseCors("development");
 
             app.MapControllers();
+            
+            app.UseRateLimiter();
 
             app.Run();
         }

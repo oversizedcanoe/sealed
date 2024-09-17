@@ -24,6 +24,7 @@ export class UserEntryService {
 
   async addUserEntry(publicKey: string, entryText: string): Promise<UserEntry | undefined> {
     var body = {text: entryText};
+  
     const result = await this.backendService.post<UserEntry>(this.url + '/adduserentry/' + publicKey,  body);
 
     if (result instanceof ApiError) {

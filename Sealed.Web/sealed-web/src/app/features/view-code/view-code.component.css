@@ -8,3 +8,13 @@
 .submitButton {
     margin-top: 5px;
 }
+
+.publicKey {
+    display: inline;
+    vertical-align: middle;
+    padding-right: 1rem;
+}
+
+.copy-button {
+    margin: 5px;
+}

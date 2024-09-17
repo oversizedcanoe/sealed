@@ -1,0 +1,19 @@
+#toast {
+    opacity: 0;
+    height: 5%;
+    background-color: limegreen;
+    position: absolute;
+    bottom: 10%;
+    left: 40%;
+    width: 20%;
+    padding: 1rem;
+    height: 1.25rem;
+    border-radius: 5px;
+    transition: opacity .3s;
+}
+
+#toastText {
+    font-size: 1.25rem;
+    margin: 0;
+    text-align: center;
+}
