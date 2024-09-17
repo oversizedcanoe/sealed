@@ -3,16 +3,25 @@
 
 <div>
     <h3>Keys</h3>
-    @if (privateKey != ''){
-    <p>Private Key: {{privateKey}}</p>
-    }
-
-    @if (publicKey != '') {
-    <p class="publicKey">Public Key: {{publicKey}}</p> 
-    <button class="pure-button button-secondary button-sm copy-button" (click)="copyPublicLink()">Copy Link</button>
-    <button class="pure-button button-secondary button-sm copy-button" (click)="copyPublicCode()">Copy Code</button>
-    }
-
+    <table>
+        <tbody>
+            @if (privateKey != ''){
+                <tr>
+                    <td><p class="key">Private Key: {{privateKey}}</p></td>
+                    <td colspan="2"><button class="pure-button button-secondary button-sm copy-button" (click)="copyPrivateCode()">Copy Code</button></td>
+                </tr>
+            }
+                
+            @if (publicKey != '') {
+                <tr>
+                    <td><p class="key">Public Key: {{publicKey}}</p> </td>
+                    <td><button class="pure-button button-secondary button-sm copy-button" (click)="copyPublicCode()">Copy Code</button></td>
+                    <td><button class="pure-button button-secondary button-sm copy-button" (click)="copyPublicLink()">Copy Link</button></td>
+                </tr>
+                }
+        </tbody>
+    </table>
+    
     @if (anyKeySelected() == false){
     <p>Please go home to create or look up a key.</p>
     }

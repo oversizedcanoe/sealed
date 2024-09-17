@@ -120,4 +120,9 @@ export class ViewCodeComponent implements OnInit {
     showToast('Code Copied!');
   }
 
+  copyPrivateCode(){
+    this.clipboard.copy(this.privateKey);
+    showToast('Code Copied!');
+  }
+
 }
